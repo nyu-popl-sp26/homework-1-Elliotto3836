@@ -81,26 +81,30 @@ object hw01 extends App:
   /* Exercises */
 
   def abs(n: Double): Double =
-    ???
+    if n > 0 then n else n*(-1)
 
-  def ar(p: Int): Int =
-    ???
+  def ar(p: Int): Int = {
+    if p < 10 && p >= 0 then 1 else if p > -10 && p < 0 then 2 else 1 + ar(p / 10)
+  }
 
-  def rep(s: String, t: String, n: Int): String =
+
+  def rep(s: String, t: String, n: Int): String = {
     require (n >= 0)
-    ???
-
+    if n == 1 then s else if n==0 then "" else s + t + rep(s, t, n-1)
+  }
 
   def approx(c: Double, xn: Double): Double =
-    ???
+    xn-(((xn*xn*xn)-c)/(3*xn*xn))
 
-  def approxN(c: Double, xn: Double, n: Int): Double =
+  def approxN(c: Double, xn: Double, n: Int): Double = {
     require(n >= 0)
-    ???
+    if n == 0 then xn else approxN(c,approx(c,xn),n-1)
+  }
 
-  def approxErr(c: Double, xn: Double, epsilon: Double): Double =
+  def approxErr(c: Double, xn: Double, epsilon: Double): Double = {
     require (epsilon > 0)
-    ???
+    if abs(xn -(c/(xn*xn))) < epsilon then xn else approxErr(c,approx(c, xn),epsilon)
+  }
 
   def root(c: Double): Double =
     approxErr(c, 1.0, 0.0001)
